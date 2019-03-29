@@ -6,22 +6,25 @@ import com.lavinia.domain.Scorecard;
 import java.util.ArrayList;
 
 /**
- * BowlingScorer
+ * Basic bowling scorer for a single-player.
  *
  */
-public class App {
+public class BowlingScorer {
 
     ScoringSystem scoringSystem = new TraditionalScoringSystem();
-
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
 
     public Scorecard createScorecard() {
         return scoringSystem.createScorecard();
     }
 
+
+    /**
+     * Main method to record a frame - all other overloaded recordFrame methods will call this one.
+     *
+     * @param scorecard
+     * @param rolls
+     * @return
+     */
     public Scorecard recordFrame(final Scorecard scorecard, final ArrayList<Roll> rolls) {
 
         if (isGameComplete(scorecard)) {
@@ -33,6 +36,7 @@ public class App {
 
     public Scorecard recordFrame(final Scorecard scorecard, final Integer resultOfFirstBall,
                                  final Integer resultOfSecondBall) {
+
         ArrayList<Roll> rolls = new ArrayList<>();
         rolls.add(new Roll(resultOfFirstBall));
         rolls.add(new Roll(resultOfSecondBall));
@@ -42,6 +46,7 @@ public class App {
 
     public Scorecard recordFrame(final Scorecard scorecard, final Integer resultOfFirstBall,
                                  final Integer resultOfSecondBall, final Integer resultOfThirdBall) {
+
         ArrayList<Roll> rolls = new ArrayList<>();
         rolls.add(new Roll(resultOfFirstBall));
         rolls.add(new Roll(resultOfSecondBall));
@@ -58,7 +63,11 @@ public class App {
     }
 
     public boolean isGameComplete(final Scorecard scorecard) {
-        return scorecard.isScoreComplete();
+        return scorecard.isScorecardComplete();
+    }
+
+    public Integer getTotalScore(final Scorecard scorecard) {
+        return scorecard.getTotalScore();
     }
 
 }

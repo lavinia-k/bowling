@@ -2,6 +2,9 @@ package com.lavinia.domain;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a frame in a bowling scorecard.
+ */
 public class Frame {
 
     public final ArrayList<Roll> rolls;

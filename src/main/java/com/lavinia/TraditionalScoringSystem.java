@@ -7,6 +7,9 @@ import com.lavinia.domain.Scorecard;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
+/**
+ * The most common method of scoring in bowling (TRADITIONAL).
+ */
 public class TraditionalScoringSystem implements ScoringSystem {
 
     public Integer TOTAL_NUMBER_OF_FRAMES = 10;
@@ -39,7 +42,7 @@ public class TraditionalScoringSystem implements ScoringSystem {
 
             Frame currentFrame = scorecard.getFrame(currentFrameNum);
 
-            if (currentFrame.isSpare()) {
+            if (currentFrame.isSpare() && frameIndex == 0) {
                 currentFrame.addToScore(frameRolls.get(0).pins);
                 break;
             }
@@ -51,18 +54,13 @@ public class TraditionalScoringSystem implements ScoringSystem {
 
                 currentFrame.addToScore(frameRolls.get(0).pins);
 
-                if (frameIndex < 1 && frame.rolls.size() >= 2) {
+                if (frameIndex == 0 && frame.rolls.size() >= 2) {
                     currentFrame.addToScore(frameRolls.get(1).pins);
                 }
             }
-
         }
 
         return null;
-    }
-
-    public Integer getRollPinCountFromFrame(final Integer rollNum, final Frame frame) {
-        return frame.rolls.get(rollNum).pins;
     }
 
     public void validateRolls(final Scorecard scorecard, final ArrayList<Roll> rolls) {
@@ -81,9 +79,9 @@ public class TraditionalScoringSystem implements ScoringSystem {
                 );
             }
 
-            if ((rolls.get(0).pins + rolls.get(1).pins) == 10 && rolls.size() != 2) {
+            if ((rolls.get(0).pins + rolls.get(1).pins) == 10 && rolls.size() != 3) {
                 throw new InvalidParameterException(
-                        "Found a strike in the first roll of the final frame - expected 2 total rolls for this " +
+                        "Found a spare in the second roll of the final frame - expected 3 total rolls for this " +
                                 "frame, but received: " + rolls.size()
                 );
             }

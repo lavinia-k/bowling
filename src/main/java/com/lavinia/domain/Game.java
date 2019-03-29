@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import static com.lavinia.domain.ScoringType.TRADITIONAL;
 
+/**
+ * Basic class intended to support having a multi-player bowling game.
+ */
 public class Game {
 
     public final Integer numberOfPlayers;
